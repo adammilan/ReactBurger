@@ -83,6 +83,20 @@ class ContactData extends Component {
             );
     }
 
+    inputChangedHandler = (event,inputIdentifier)=>{
+        //this kind of cloning only clones the first level of the
+        //javascript object, we need the value object that why
+        //we make the second constant here
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = {
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm:updatedOrderForm})
+    }
     render() {
 
         const formElementsArray = [];
@@ -99,6 +113,7 @@ class ContactData extends Component {
                 elementType = {formElement.config.elementType}
                 elementConfig = {formElement.config.elementConfig}
                 value = {formElement.config.value}
+                changed = {(event) => this.inputChangedHandler(event,formElement.id)}
                 ></Input>
             ))}
             <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>

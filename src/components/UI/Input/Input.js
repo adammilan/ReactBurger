@@ -1,24 +1,41 @@
 import React from 'react';
 import classes from './Input.css';
-const input  = (props) => {
-    var inputElement = null; 
-  switch(props.inputtype){
-      case('input'):
-        inputElement = <input className={classes.InputElement}  {...props}/>
+const input = (props) => {
+    var inputElement = null;
+    switch (props.elementType) {
+        case ('input'):
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig} value={props.value} />
+            break;
+        case ('textarea'):
+            inputElement = <textarea
+                className={classes.InputElement}
+                {...props.elementConfig} />
+            break;
+        case ('select'):
+        inputElement = <select
+        className={classes.InputElement}>
+        {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value} >
+            {option.displayValue}
+            </option>
+        ))}
+        </select>
         break;
-      case ('textarea'):
-        inputElement = <textarea {...props}/>
-        break; 
         default:
-        inputElement = <input className={classes.InputElement} {...props}/>  
-  }
-  
-    return(
-  <div className={classes.Input}>
-        <label className={classes.Label}>{props.label}</label>
-            {inputElement}
-    </div>
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig} />
+    }
 
-)};
+    return (
+        <div className={classes.Input}>
+            <label className={classes.Label}>{props.label}</label>
+            {inputElement}
+        </div>
+
+    )
+};
 
 export default input;

@@ -76,7 +76,6 @@ class BurgerBuilder extends Component {
 
     }
     purchaseContiniueHandler = () => {
-    
         // const queryParams = [];
         // for(let i in this.state.ingredients){
         //     queryParams.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
@@ -87,7 +86,9 @@ class BurgerBuilder extends Component {
         //     pathname:'/checkout',
         //     search: '?' + queryString
         // });
+        this.props.onInitPurchase(); 
         this.props.history.push('/checkout');
+
     }
 
     componentDidMount() {
@@ -155,7 +156,8 @@ const mapDispatchToProps = dispatch => {
     return{
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
         onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients()),
+        onInitPurchase: () => dispatch(burgerBuilderActions.purchaseInit())
 
     };
 }
